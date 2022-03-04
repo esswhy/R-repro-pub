@@ -6,6 +6,7 @@ output:
   html_document:
     df_print: paged
 bibliography: references.bib
+csl: apa.csl
 ---
 
 ```{r setup, echo = FALSE, warning = FALSE, message = FALSE}
@@ -18,7 +19,6 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 knitr::opts_chunk$set(results = FALSE, echo = FALSE, warning = FALSE, message = FALSE)
 
 ```
-
 
 ```{r load-libraries-and-data}
 #Attach libraries
@@ -33,20 +33,19 @@ df <- read.csv("output/data/preprocessed-GARP-TSST-data.csv", encoding = "UTF-8"
 bronars_simulation_data <- read.csv("data/bronars_simulation_data.csv")
 ```
 
-
 Citation to original version of this data article:
 
 Nitsch, F. J., Sellitto, M., & Kalenscher, T. (2021). Trier social stress test and food-choice: Behavioral, self-report & hormonal data. *Data in brief*, *37*, 107245. <https://doi.org/10.1016/j.dib.2021.107245> (**FIXME2**)
 
 **Abstract**
 
-A sample of 144 participants underwent the Trier Social Stress Test (TSST), a psychosocial stress manipulation involving a mock interview and a mental arithmetic task, or a matched control procedure. Physiological stress was estimated via a collection of 7 saliva samples over the course of the experiment analysed for cortisol and alpha-amylase, as well as via the mean heart-rate measured before and during the experimental manipulation. Subjective stress was assessed via the Positive and Negative Affect Scale as well as four Visual Analogue Scales at 6 points over the time course of the experiment. Participants solved an incentive-compatible food-choice task before, immediately after and in the aftermath of the experimental manipulation. In each trial of the food-choice task, participants had to choose one out of a set of two to seven snack bundles. Each snack bundle consisted of specific amounts of a sweet or salty snack and a fruit or vegetable. The snacks for both categories were selected to be similarly attractive according to the previously provided online ratings of the participants. The design of the food-choice task allows for the calculation of revealed preference consistency indices. The dataset further contains several self-report questionnaires administered to the participants before the experimental session, including the Trier Inventory of Chronic Stress.
+A sample of 144 participants underwent the Trier Social Stress Test (TSST), a psychosocial stress manipulation involving a mock interview and a mental arithmetic task, or a matched control procedure. Physiological stress was estimated via a collection of 7 saliva samples over the course of the experiment analysed for cortisol and alpha-amylase, as well as via the mean heart-rate measured before and during the experimental manipulation. Subjective stress was assessed via the Positive and Negative Affect Scale as well as four Visual Analogue Scales at 6 points over the time course of the experiment. Participants solved an incentive-compatible food-choice task before, immediately after and in the aftermath of the experimental manipulation. In each trial of the food-choice task, participants had to choose one out of a set of two to seven snack bundles. Each snack bundle consisted of specific amounts of a sweet or salty snack and a fruit or vegetable. The snacks for both categories were selected to be similarly attractive according to the previously provided online ratings of the participants. The design of the food-choice task allows for the calculation of revealed preference consistency indices. The dataset further contains several self-report questionnaires administered to the participants before the experimental session, including the Trier Inventory of Chronic Stress. [@kirschbaum2007]
 
 ## **Keywords**
 
 Acute stress; Amylase Choice Consistency; Cortisol; Chronic StressFood-Choice; Rationality.
 
-### **Specifications Table** 
+### **Specifications Table**
 
 +:-------------------------------+:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Subject                        | Neuropsychology and Physiological Psychology                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
@@ -139,7 +138,6 @@ Description: contains all 22 possible economic parameter combinations which were
 
 File: root/data/bronars_simulation_data.csv (\_raw data\_)
 
-
 The CSV file contains choice consistency data for `r nrow(bronars_simulation_data)` simulated participants, that have been used to determine the power of our food-choice task design to detect choice consistency violations, which averaged `r mean(bronars_simulation_data$violation_count)`. Simulated participants solved one measurement (11 trials) of the food-choice task (see Experimental Design, Materials & Methods). Simulated choices were uniform-random among the choice sets. Column 1 and 2 ("filename", "VP") are redundant and contain the participant IDs. Column 3 ("Session") indicates the number of measurements (always 1 here). Column 4 ("violation_count") indicates the number of trials involved in a revealed preference inconsistency [see 2]. Column 5 ("AI") contains the critical cost efficiency index @nitsch2020a; ,@afriat1972. Column 6 ("mean_RT") contains the mean reaction times (arbitrary). Typically, users of the data will only use the information in column 4 and 5 ("violation_count", "AI").
 
 File: root/data/foodchoice_data/CC-\$VPN\_\$Measurement_data.csv (\_raw data\_)
@@ -176,17 +174,16 @@ We collected saliva samples with Salivette devices (Sarstedt, Germany) that cons
 
 FIXME add Fig 3 - heart rate analysis
 
-
 ```{r fig3-heartrate, results = FALSE, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Fig 3. Mean heart rate of stress and control groups at baseline and during intervention."}
 #Call R script in code folder
 #03_HR_analysis.R
 
-library(tidyverse)
-library(BayesFactor)
+# library(tidyverse)
+# library(BayesFactor)
 
 #Read data
 #Need to fix directory where this Rmd lives and where that R script lives
-df <- read.csv("output/data/preprocessed-GARP-TSST-data.csv", encoding = "UTF-8")
+# df <- read.csv("output/data/preprocessed-GARP-TSST-data.csv", encoding = "UTF-8")
 
 #Convert df to long-format
 df_long <- df %>%
@@ -235,7 +232,6 @@ plot
 #ggsave("output/plots/heartrate.pdf", plot, width = 4, height = 3)
 ```
 
-
 FIXME add Fig 4: Cortisol and Amylase levels in stress and control groups
 
 ```{r}
@@ -249,7 +245,6 @@ source("code/02_hormone_analysis.R", local = knitr::knit_global())
 #Display figure, need to call plot
 plot
 ```
-
 
 All analyses were conducted in R[^1] in the RStudio IDE[^2] using the packages Tidyverse (**add citation here**), stringi[^3], BayesFactor[^4] and patchwork[^5].
 
