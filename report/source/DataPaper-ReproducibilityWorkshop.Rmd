@@ -8,6 +8,32 @@ output:
 bibliography: references.bib
 ---
 
+```{r setup, echo = FALSE, warning = FALSE, message = FALSE}
+#Global code chunk for setting working directory
+
+#Direct root directory to root project file
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+#Setting global options for all code chunks
+knitr::opts_chunk$set(results = FALSE, echo = FALSE, warning = FALSE, message = FALSE)
+
+```
+
+
+```{r load-libraries-and-data}
+#Attach libraries
+library(tidyverse)
+library(patchwork)
+library(BayesFactor)
+
+
+#Load data
+df <- read.csv("output/data/preprocessed-GARP-TSST-data.csv", encoding = "UTF-8")
+
+bronars_simulation_data <- read.csv("data/bronars_simulation_data.csv")
+```
+
+
 Citation to original version of this data article:
 
 Nitsch, F. J., Sellitto, M., & Kalenscher, T. (2021). Trier social stress test and food-choice: Behavioral, self-report & hormonal data. *Data in brief*, *37*, 107245. <https://doi.org/10.1016/j.dib.2021.107245> (**FIXME2**)
@@ -113,7 +139,6 @@ Description: contains all 22 possible economic parameter combinations which were
 
 File: root/data/bronars_simulation_data.csv (\_raw data\_)
 
-`r bronars_simulation_data <- read.csv("../../data/bronars_simulation_data.csv")`
 
 The CSV file contains choice consistency data for `r nrow(bronars_simulation_data)` simulated participants, that have been used to determine the power of our food-choice task design to detect choice consistency violations, which averaged `r mean(bronars_simulation_data$violation_count)`. Simulated participants solved one measurement (11 trials) of the food-choice task (see Experimental Design, Materials & Methods). Simulated choices were uniform-random among the choice sets. Column 1 and 2 ("filename", "VP") are redundant and contain the participant IDs. Column 3 ("Session") indicates the number of measurements (always 1 here). Column 4 ("violation_count") indicates the number of trials involved in a revealed preference inconsistency [see 2]. Column 5 ("AI") contains the critical cost efficiency index @nitsch2020a; ,@afriat1972. Column 6 ("mean_RT") contains the mean reaction times (arbitrary). Typically, users of the data will only use the information in column 4 and 5 ("violation_count", "AI").
 
@@ -161,7 +186,7 @@ library(BayesFactor)
 
 #Read data
 #Need to fix directory where this Rmd lives and where that R script lives
-df <- read.csv("../../output/data/preprocessed-GARP-TSST-data.csv", encoding = "UTF-8")
+df <- read.csv("output/data/preprocessed-GARP-TSST-data.csv", encoding = "UTF-8")
 
 #Convert df to long-format
 df_long <- df %>%
@@ -212,6 +237,19 @@ plot
 
 
 FIXME add Fig 4: Cortisol and Amylase levels in stress and control groups
+
+```{r}
+#Source external code
+#02_hormone_analysis.R
+
+#Put in relative path to run code from code directory
+#Want knitr fx to run this code
+source("code/02_hormone_analysis.R", local = knitr::knit_global())
+
+#Display figure, need to call plot
+plot
+```
+
 
 All analyses were conducted in R[^1] in the RStudio IDE[^2] using the packages Tidyverse (**add citation here**), stringi[^3], BayesFactor[^4] and patchwork[^5].
 
